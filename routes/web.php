@@ -4,6 +4,7 @@ use App\Http\Controllers\ObatController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\PenjualanController;
+use App\Http\Controllers\SuplierController;
 use App\Models\Penjualan;
 use Illuminate\Support\Facades\Route;
 
@@ -29,3 +30,4 @@ Route::resource('penjualan', PenjualanController::class);
 Route::resource('pembelian', PembelianController::class);
 
 Route::resource('pelanggan', PelangganController::class);
+Route::resource('suplier', SuplierController::class);

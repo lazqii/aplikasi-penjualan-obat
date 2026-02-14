@@ -17,4 +17,14 @@ class Obat extends Model
     {
         return $this->belongsTo(Suplier::class, 'KdSuplier', 'KdSuplier');
     }
+
+    public function getHargaBeliRupiahAttribute()
+    {
+        return "Rp " . number_format($this->HargaBeli, 0, ',', '.');
+    }
+
+    public function getHargaJualRupiahAttribute()
+    {
+        return "Rp " . number_format($this->HargaJual, 0, ',', '.');
+    }
 }

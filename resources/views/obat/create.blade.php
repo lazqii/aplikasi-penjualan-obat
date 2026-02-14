@@ -35,13 +35,19 @@
 
             <div class="row mb-3">
                 <div class="col-md-4">
-                    <label for="HargaBeli" class="form-label">Harga Beli</label>
-                    <input type="number" name="HargaBeli" class="form-control" required>
+                    <label class="form-label">Harga Beli</label>
+                    <div class="input-group">
+                        <span class="input-group-text">Rp</span>
+                        <input type="text" class="form-control rupiah" name="HargaBeli" required>
+                    </div>
                 </div>
-                <div class="col-md-4">
-                    <label for="HargaJual" class="form-label">Harga Jual</label>
-                    <input type="number" name="HargaJual" class="form-control" required>
+            <div class="col-md-4">
+                <label class="form-label">Harga Jual</label>
+                <div class="input-group">
+                    <span class="input-group-text">Rp</span>
+                    <input type="text" class="form-control rupiah" name="HargaJual" required>
                 </div>
+            </div>
                 <div class="col-md-4">
                     <label for="Stok" class="form-label">Stok Awal</label>
                     <input type="number" name="Stok" class="form-control" required>
@@ -63,4 +69,33 @@
         </form>
     </div>
 </div>
+<script>
+    // 1. Tangkap semua input dengan class 'rupiah'
+    const inputs = document.querySelectorAll('.rupiah');
+
+    // 2. Loop setiap input
+    inputs.forEach(input => {
+        input.addEventListener('keyup', function(e) {
+            // Format value-nya
+            input.value = formatRupiah(this.value);
+        });
+    });
+
+    // Fungsi Format Rupiah
+    function formatRupiah(angka, prefix) {
+        var number_string = angka.replace(/[^,\d]/g, '').toString(),
+            split = number_string.split(','),
+            sisa = split[0].length % 3,
+            rupiah = split[0].substr(0, sisa),
+            ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+        if (ribuan) {
+            separator = sisa ? '.' : '';
+            rupiah += separator + ribuan.join('.');
+        }
+
+        rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+        return rupiah; // Hasilnya: 10.000
+    }
+</script>
 @endsection

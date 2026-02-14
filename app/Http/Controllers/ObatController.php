@@ -37,18 +37,20 @@ class ObatController extends Controller
 
     public function store(Request $request)
     {
+        $data = $request->all();
+
+        $data['HargaBeli'] = str_replace('.', '', $request->HargaBeli);
+        $data['HargaJual'] = str_replace('.', '', $request->HargaJual);
+
+        $request->merge($data);
         $request->validate([
             'KdObat' => 'required|unique:obats,KdObat|max:10',
             'NmObat' => 'required|max:50',
-            'Jenis' => 'required',
-            'Satuan' => 'required',
             'HargaBeli' => 'required|numeric',
             'HargaJual' => 'required|numeric',
-            'Stok' => 'required|numeric',
-            'KdSuplier' => 'required|exists:supliers,KdSuplier',
         ]);
 
-        Obat::create($request->all());
+        Obat::create($data);
 
         return redirect()->route('obat.index')->with('success', 'Data Obat berhasil ditambahkan!');
     }
@@ -62,19 +64,20 @@ class ObatController extends Controller
 
     public function update(Request $request, $id)
     {
+        $data = $request->all();
+
+        $data['HargaBeli'] = str_replace('.', '', $request->HargaBeli);
+        $data['HargaJual'] = str_replace('.', '', $request->HargaJual);
+
+        $request->merge($data);
+
         $request->validate([
-            'KdObat' => 'required|max:10|unique:obats,KdObat,'.$id.',KdObat',
-            'NmObat' => 'required|max:50',
-            'Jenis' => 'required',
-            'Satuan' => 'required',
             'HargaBeli' => 'required|numeric',
             'HargaJual' => 'required|numeric',
-            'Stok' => 'required|numeric',
-            'KdSuplier' => 'required|exists:supliers,KdSuplier',
         ]);
 
         $obat = Obat::findOrFail($id);
-        $obat->update($request->all());
+        $obat->update($data);
 
         return redirect()->route('obat.index')->with('success', 'Data Obat berhasil diperbarui!');
     }

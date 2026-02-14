@@ -42,8 +42,8 @@
                         <td>{{ $obt->NmObat }}</td>
                         <td>{{ $obt->Jenis }}</td>
                         <td>{{ $obt->Satuan }}</td>
-                        <td>{{ $obt->HargaBeli }}</td>
-                        <td>{{ $obt->HargaJual }}</td>
+                        <td>{{ $obt->harga_beli_rupiah }}</td>
+                        <td>{{ $obt->harga_jual_rupiah }}</td>
                         <td>{{ $obt->Stok }}</td>
                         <td>
                             <a href="{{ route('obat.edit', $obt->KdObat) }}" class="btn btn-sm btn-warning">

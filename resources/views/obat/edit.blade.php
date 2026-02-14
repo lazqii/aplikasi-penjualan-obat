@@ -37,11 +37,15 @@
             <div class="row mb-3">
                 <div class="col-md-4">
                     <label for="HargaBeli" class="form-label">Harga Beli</label>
-                    <input type="number" name="HargaBeli" class="form-control" value="{{ $obat->HargaBeli }}" required>
+                    <input type="text" 
+                        class="form-control rupiah" 
+                        name="HargaBeli" 
+                        value="{{ number_format($obat->HargaBeli, 0, ',', '.') }}" 
+                        required>
                 </div>
                 <div class="col-md-4">
                     <label for="HargaJual" class="form-label">Harga Jual</label>
-                    <input type="number" name="HargaJual" class="form-control" value="{{ $obat->HargaJual }}" required>
+                    <input type="text" name="HargaJual" class="form-control rupiah" value="{{ number_format($obat->HargaJual, 0, ',', '.') }}" required>
                 </div>
                 <div class="col-md-4">
                     <label for="Stok" class="form-label">Stok</label>

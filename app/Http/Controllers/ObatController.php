@@ -9,12 +9,25 @@ use App\Models\Suplier;
 class ObatController extends Controller
 {
     //
-    public function index()
-    {
-        $obat = Obat::all();
+    public function index(Request $request)
+{
+    $query = Obat::with('suplier');
 
-        return view('obat.index', compact('obat'));
+    // input search
+    if ($request->has('search')) {
+        $search = $request->search;
+        
+    // filter kode atau nama obat
+        $query->where(function($q) use ($search) {
+            $q->where('KdObat', 'LIKE', '%' . $search . '%')
+              ->orWhere('NmObat', 'LIKE', '%' . $search . '%');
+        });
     }
+
+    $obat = $query->get();
+
+    return view('obat.index', compact('obat'));
+}
 
     public function create()
     {

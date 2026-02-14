@@ -10,7 +10,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/obat', [ObatController::class, 'index'])->name('obat.index');
+Route::resource('obat', ObatController::class);
+// Route::get('/obat', [ObatController::class, 'index'])->name('obat.index');
 Route::get('/penjualan', [PenjualanController::class, 'index'])->name('penjualan.index');
 // Route::get('/pembelian', [PembelianController::class, 'index'])->name('pembelian.index');
 Route::resource('pembelian', PembelianController::class);

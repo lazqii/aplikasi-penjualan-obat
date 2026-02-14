@@ -4,7 +4,7 @@
 <div class="card shadow-sm">
         <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
             <h5 class="mb-0"></h5>
-            <a href="#" class="btn btn-light btn-sm">Tambah Transaksi</a>
+            <a href="{{ route('penjualan.create') }}" class="btn btn-light btn-sm">Tambah Transaksi</a>
         </div>
         <div class="card-body">
             <table class="table table-striped table-hover">
@@ -26,11 +26,7 @@
                         <td>{{ number_format($pj->Diskon) }}</td>
                         <td>
                             
-                            <a href="#" class="btn btn-sm btn-warning">
-                                <i class="bi bi-pencil"></i>
-                            </a>
-
-                            <form action="#" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data ini?')"> 
+                            <form action="{{ route('penjualan.destroy', $pj->Nota) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data ini?')"> 
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger">

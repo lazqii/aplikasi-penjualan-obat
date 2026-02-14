@@ -4,7 +4,7 @@
 <div class="card shadow-sm">
         <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
             <h5 class="mb-0"></h5>
-            <a href="#" class="btn btn-light btn-sm">Tambah Transaksi</a>
+            <a href="{{ route('pembelian.create') }}" class="btn btn-light btn-sm">Tambah Transaksi</a>
         </div>
         <div class="card-body">
             <table class="table table-striped table-hover">

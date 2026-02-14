@@ -28,4 +28,4 @@ Route::resource('penjualan', PenjualanController::class);
 
 Route::resource('pembelian', PembelianController::class);
 
-Route::get('/pelanggan', [PelangganController::class, 'index'])->name('pelanggan.index');
+Route::resource('pelanggan', PelangganController::class);

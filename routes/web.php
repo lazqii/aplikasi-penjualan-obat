@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ObatController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\PembelianController;
@@ -8,9 +9,9 @@ use App\Http\Controllers\SuplierController;
 use App\Models\Penjualan;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 // Route::get('/obat', [ObatController::class, 'index'])->name('obat.index');
 // Route::get('/penjualan', [PenjualanController::class, 'index'])->name('penjualan.index');
@@ -31,3 +32,5 @@ Route::resource('pembelian', PembelianController::class);
 
 Route::resource('pelanggan', PelangganController::class);
 Route::resource('suplier', SuplierController::class);
+
+Route::get('/', [DashboardController::class, 'index'])->name('dashboard');

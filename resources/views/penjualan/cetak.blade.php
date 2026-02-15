@@ -78,9 +78,9 @@
     </table>
 
     <div class="footer">
-        <p>Hormat Kami,</p>
+        <p>Terima Kasih</p>
         <br><br>
-        <p>( ....................... )</p>
+        <!-- <p>( ....................... )</p> -->
     </div>
 
 </body>

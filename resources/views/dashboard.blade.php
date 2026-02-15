@@ -107,6 +107,7 @@
     </div>
 
     {{-- AKSES CEPAT --}}
+     @if(auth()->user()->level == 'admin')
     <div class="col-md-6">
         <div class="card shadow-sm h-100">
             <div class="card-header bg-light">
@@ -125,5 +126,6 @@
             </div>
         </div>
     </div>
+    @endif
 </div>
 @endsection

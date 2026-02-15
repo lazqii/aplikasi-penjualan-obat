@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ObatController;
 use App\Http\Controllers\PelangganController;
@@ -25,12 +26,36 @@ Route::resource('obat', ObatController::class);
 //     return view('penjualan.cetak', compact('penjualan'));
 // })->name('penjualan.cetak');
 
-Route::get('/penjualan/{id}/cetak', [PenjualanController::class, 'cetak'])->name('penjualan.cetak');
-Route::resource('penjualan', PenjualanController::class);
+// Route::get('/penjualan/{id}/cetak', [PenjualanController::class, 'cetak'])->name('penjualan.cetak');
+// Route::resource('penjualan', PenjualanController::class);
 
-Route::resource('pembelian', PembelianController::class);
+// Route::resource('pembelian', PembelianController::class);
 
-Route::resource('pelanggan', PelangganController::class);
-Route::resource('suplier', SuplierController::class);
+// Route::resource('pelanggan', PelangganController::class);
+// Route::resource('suplier', SuplierController::class);
 
-Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+// Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::middleware(['auth'])->group(function () {
+    
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    
+    Route::middleware(['ceklevel:admin'])->group(function () {
+        Route::resource('obat', ObatController::class);
+        Route::resource('suplier', SuplierController::class);
+        Route::resource('pelanggan', PelangganController::class);
+        Route::resource('pembelian', PembelianController::class);
+        
+        Route::delete('/penjualan/{id}', [PenjualanController::class, 'destroy'])->name('penjualan.destroy');
+    });
+
+    Route::middleware(['ceklevel:admin,kasir'])->group(function () {
+        Route::resource('penjualan', PenjualanController::class)->except(['destroy']);
+        Route::get('/penjualan/{id}/cetak', [PenjualanController::class, 'cetak'])->name('penjualan.cetak');
+    });
+
+});

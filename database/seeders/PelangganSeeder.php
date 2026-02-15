@@ -29,5 +29,13 @@ class PelangganSeeder extends Seeder
             'Kota' => 'Jember',
             'NoTelp' => '085157363782'
         ]);
+
+        Pelanggan::create([
+            'KdPelanggan' => 'PL003',
+            'NmPelanggan' => 'Umum',
+            'Alamat' => '-',
+            'Kota' => '-',
+            'NoTelp' => '0'
+        ]);
     }
 }

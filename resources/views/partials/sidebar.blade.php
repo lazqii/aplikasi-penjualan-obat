@@ -1,57 +1,78 @@
 <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px; min-height: 100vh;">
     <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-        <span class="fs-4">Sistem Informasi Penjualan Obat</span>
+        <span class="fs-4 fw-bold">Apotek Sehat Abadi</span>
     </a>
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
+        
+        {{-- 1. MENU UMUM (Bisa dilihat Admin & Kasir) --}}
         <li class="nav-item">
-            <a href="{{ url('/') }}" class="nav-link text-white {{ request()->is('/') ? 'active' : '' }}">
+            <a href="{{ route('dashboard') }}" class="nav-link text-white {{ request()->routeIs('dashboard') ? 'active' : '' }}">
                 <i class="bi bi-speedometer2 me-2"></i>
                 Dashboard
             </a>
         </li>
         <li>
-            <a href="{{ url('/obat') }}" class="nav-link text-white {{ request()->is('obat*') ? 'active' : '' }}">
-                <i class="bi bi-people me-2"></i>
-                Data Obat
+            <a href="{{ route('penjualan.index') }}" class="nav-link text-white {{ request()->is('penjualan*') ? 'active' : '' }}">
+                <i class="bi bi-cart-check me-2"></i>
+                Kasir
             </a>
         </li>
-        <li>
-            <a href="{{ url('/penjualan') }}" class="nav-link text-white {{ request()->is('penjualan*') ? 'active' : '' }}">
-                <i class="bi bi-person-video3 me-2"></i>
-                Data Penjualan
-            </a>
-        </li>
-        <li>
-            <a href="{{ url('/pembelian') }}" class="nav-link text-white {{ request()->is('pembelian*') ? 'active' : '' }}">
-                <i class="bi bi-book me-2"></i>
-                Data Pembelian
-            </a>
-        </li>
-        <li>
-            <a href="{{ url('/pelanggan') }}" class="nav-link text-white {{ request()->is('pelanggan*') ? 'active' : '' }}">
-                <i class="bi bi-calendar-week me-2"></i>
-                Data Pelanggan
-            </a>
-        </li>
-        <li>
-            <a href="{{ url('/suplier') }}" class="nav-link text-white {{ request()->is('suplier*') ? 'active' : '' }}">
-                <i class="bi bi-calendar-week me-2"></i>
-                Data Suplier
-            </a>
-        </li>
+
+        {{-- 2. MENU KHUSUS ADMIN (Dibungkus @if) --}}
+        @if(auth()->user()->level == 'admin')
+            
+            {{-- Pemisah Kecil biar rapi --}}
+            <li class="nav-item mt-3 mb-1">
+                <span class="text-white-50 small text-uppercase fw-bold ps-3" style="font-size: 0.75rem;">Master Data</span>
+            </li>
+
+            <li>
+                <a href="{{ route('obat.index') }}" class="nav-link text-white {{ request()->is('obat*') ? 'active' : '' }}">
+                    <i class="bi bi-capsule me-2"></i>
+                    Data Obat
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('pembelian.index') }}" class="nav-link text-white {{ request()->is('pembelian*') ? 'active' : '' }}">
+                    <i class="bi bi-box-seam me-2"></i>
+                    Data Pembelian
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('pelanggan.index') }}" class="nav-link text-white {{ request()->is('pelanggan*') ? 'active' : 'link-light' }}">
+                    <i class="bi bi-people me-2"></i>
+                    Data Pelanggan
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('suplier.index') }}" class="nav-link text-white {{ request()->is('suplier*') ? 'active' : '' }}">
+                    <i class="bi bi-truck me-2"></i>
+                    Data Suplier
+                </a>
+            </li>
+        @endif
+
     </ul>
     <hr>
+    
+    {{-- 3. USER PROFILE & LOGOUT --}}
     <div class="dropdown">
         <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="https://ui-avatars.com/api/?name=Admin" alt="" width="32" height="32" class="rounded-circle me-2">
-            <strong>Admin</strong>
+            {{-- Avatar Otomatis sesuai Nama User --}}
+            <img src="https://ui-avatars.com/api/?name={{ Auth::user()->name }}&background=random" alt="" width="32" height="32" class="rounded-circle me-2">
+            <strong>{{ Auth::user()->name }}</strong>
         </a>
         <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-            <li><a class="dropdown-item" href="#">Settings</a></li>
-            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li><a class="dropdown-item" href="#">Level: {{ ucfirst(Auth::user()->level) }}</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Sign out</a></li>
+            <li>
+                {{-- Form Logout (Wajib pakai form agar aman) --}}
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="dropdown-item">Sign out</button>
+                </form>
+            </li>
         </ul>
     </div>
 </div>
